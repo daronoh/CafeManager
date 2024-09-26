@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import init_db
@@ -5,9 +6,7 @@ from routes import cafe_routes, employee_routes
 
 app = FastAPI()
 
-origins = [
-    "https://cafemanagerproject.netlify.app",
-]
+origins = os.getenv("ALLOWED_ORIGINS")
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,10 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize the database
 init_db()
 
-# Include API routes
 app.include_router(cafe_routes, prefix="/cafes")
 app.include_router(employee_routes, prefix="/employees")
 

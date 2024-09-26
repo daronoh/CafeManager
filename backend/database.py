@@ -34,7 +34,7 @@ def get_db():
 
 
 def init_db():
-    """Initialize the database by creating all tables.
+    """Initialize the database by creating all tables, and creates seed data if the tables are empty.
 
     This function imports the necessary models and creates the tables
     defined in those models within the database.
@@ -47,13 +47,18 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
     with SessionLocal() as db:
-        seed_data(db)
+        # Check if the Cafe table is empty
+        cafes_count = db.query(Cafe).count()
+        employees_count = db.query(Employee).count()
+
+        if cafes_count == 0 and employees_count == 0:
+            seed_data(db)
 
 def seed_data(db: Session):
     from models.cafe import Cafe
     from models.employee import Employee
     from services import employee_service
-    # Example seed data for cafes
+
     cafes = [
         Cafe(
             name="Cafe One",
@@ -69,14 +74,14 @@ def seed_data(db: Session):
         )
     ]
     
-    # Add cafes to the session
+
     db.add_all(cafes)
     db.commit() 
 
     cafe_one = cafes[0] 
     cafe_two = cafes[1] 
     
-    # Example seed data for employees
+
     employees = [
         Employee(
             id=employee_service.generate_employee_id(db),
@@ -125,8 +130,6 @@ def seed_data(db: Session):
         )
     ]
     
-    # Add employees to the session
     db.add_all(employees)
     
-    # Commit the session to save data
     db.commit()
