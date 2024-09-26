@@ -28,4 +28,9 @@ app.include_router(employee_routes, prefix="/employees")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    import sys
+
+    host = sys.argv[1] if len(sys.argv) > 1 else "0.0.0.0"
+    port = int(sys.argv[2]) if len(sys.argv) > 2 else 8000
+
+    uvicorn.run(app, host=host, port=port, reload=True)
