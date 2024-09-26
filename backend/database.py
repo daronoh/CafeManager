@@ -52,6 +52,7 @@ def init_db():
 def seed_data(db: Session):
     from models.cafe import Cafe
     from models.employee import Employee
+    from services import employee_service
     # Example seed data for cafes
     cafes = [
         Cafe(
@@ -78,6 +79,7 @@ def seed_data(db: Session):
     # Example seed data for employees
     employees = [
         Employee(
+            id=employee_service.generate_employee_id(db),
             name="John",
             email_address="john@example.com",
             phone_number="82345678",
@@ -86,6 +88,7 @@ def seed_data(db: Session):
             start_date=date.today() - timedelta(days=random.randint(0, 30))
         ),
         Employee(
+            id=employee_service.generate_employee_id(db),
             name="Jane",
             email_address="jane@example.com",
             phone_number="87654321",
@@ -94,6 +97,7 @@ def seed_data(db: Session):
             start_date=date.today() - timedelta(days=random.randint(0, 30))
         ),
         Employee(
+            id=employee_service.generate_employee_id(db),
             name="Alice",
             email_address="alice@example.com",
             phone_number="83456789",
@@ -102,6 +106,7 @@ def seed_data(db: Session):
             start_date=date.today() - timedelta(days=random.randint(0, 30))
         ),
         Employee(
+            id=employee_service.generate_employee_id(db),
             name="Bob",
             email_address="bob@example.com",
             phone_number="94567890",
@@ -110,6 +115,7 @@ def seed_data(db: Session):
             start_date=date.today() - timedelta(days=random.randint(0, 30))
         ),
         Employee(
+            id=employee_service.generate_employee_id(db),
             name="Charlie",
             email_address="charlie@example.com",
             phone_number="95678901",
