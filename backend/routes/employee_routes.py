@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from models import Employee, Cafe
+from models import Employee
 from schemas import EmployeeCreate, EmployeeRead
 from services import cafe_service, employee_service
 from database import get_db

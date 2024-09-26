@@ -1,6 +1,5 @@
 from pydantic import BaseModel, EmailStr, StringConstraints
 from typing import Annotated, Optional
-from datetime import date
 
 ConstrainedStrID = Annotated[str, StringConstraints(pattern="^UI[a-zA-Z0-9]{7}$")]
 ConstrainedPhoneNumber = Annotated[str, StringConstraints(pattern="^[89][0-9]{7}$")]

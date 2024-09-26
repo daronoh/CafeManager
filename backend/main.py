@@ -1,14 +1,12 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import init_db, get_db
+from database import init_db
 from routes import cafe_routes, employee_routes
-from typing import Annotated
-from sqlalchemy.orm import Session
 
 app = FastAPI()
 
 origins = [
-    "https://cafemanagerproject.netlify.app/",
+    "https://cafemanagerproject.netlify.app",
 ]
 
 app.add_middleware(
