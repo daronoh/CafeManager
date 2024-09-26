@@ -54,6 +54,8 @@ def get_employees(cafe_name: str = None, db: Session = Depends(get_db)):
             "cafe_name": employee_cafe_name,
             "days_worked": days_worked 
         })
+
+    response.sort(key=lambda x: x['days_worked'], reverse=True)
     
     return response
 
