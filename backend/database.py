@@ -3,7 +3,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-from models import Cafe, Employee
 from datetime import date, timedelta
 import random
 
@@ -51,6 +50,8 @@ def init_db():
         seed_data(db)
 
 def seed_data(db: Session):
+    from models.cafe import Cafe
+    from models.employee import Employee
     # Example seed data for cafes
     cafes = [
         Cafe(
