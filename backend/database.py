@@ -1,9 +1,11 @@
 import os
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-
+from models import Cafe, Employee
+from datetime import date, timedelta
+import random
 
 load_dotenv()
 
@@ -44,3 +46,80 @@ def init_db():
     from models.cafe import Cafe
     from models.employee import Employee
     Base.metadata.create_all(bind=engine)
+
+    with SessionLocal() as db:
+        seed_data(db)
+
+def seed_data(db: Session):
+    # Example seed data for cafes
+    cafes = [
+        Cafe(
+            name="Cafe One",
+            description="A cozy cafe.",
+            location="Location One",
+            employees=2
+        ),
+        Cafe(
+            name="Cafe Two",
+            description="A popular spot.",
+            location="Location Two",
+            employees=3
+        )
+    ]
+    
+    # Add cafes to the session
+    db.add_all(cafes)
+    db.commit() 
+
+    cafe_one = cafes[0] 
+    cafe_two = cafes[1] 
+    
+    # Example seed data for employees
+    employees = [
+        Employee(
+            name="John",
+            email_address="john@example.com",
+            phone_number="82345678",
+            gender='Male',
+            cafe_id=cafe_one.id,
+            start_date=date.today() - timedelta(days=random.randint(0, 30))
+        ),
+        Employee(
+            name="Jane",
+            email_address="jane@example.com",
+            phone_number="87654321",
+            gender='Female',
+            cafe_id=cafe_one.id,
+            start_date=date.today() - timedelta(days=random.randint(0, 30))
+        ),
+        Employee(
+            name="Alice",
+            email_address="alice@example.com",
+            phone_number="83456789",
+            gender='Female',
+            cafe_id=cafe_two.id,
+            start_date=date.today() - timedelta(days=random.randint(0, 30))
+        ),
+        Employee(
+            name="Bob",
+            email_address="bob@example.com",
+            phone_number="94567890",
+            gender='Male',
+            cafe_id=cafe_two.id,
+            start_date=date.today() - timedelta(days=random.randint(0, 30))
+        ),
+        Employee(
+            name="Charlie",
+            email_address="charlie@example.com",
+            phone_number="95678901",
+            gender='Male',
+            cafe_id=cafe_two.id,
+            start_date=date.today() - timedelta(days=random.randint(0, 30))
+        )
+    ]
+    
+    # Add employees to the session
+    db.add_all(employees)
+    
+    # Commit the session to save data
+    db.commit()
