@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
+    "https://cafemanagerproject.netlify.app/",
 ]
 
 app.add_middleware(

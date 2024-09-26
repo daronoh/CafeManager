@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://cafemanager-i3tm.onrender.com';
 
 export const fetchCafes = async (data) => {
     const location = data.queryKey[1] || '';
