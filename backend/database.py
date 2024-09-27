@@ -47,7 +47,11 @@ def init_db():
     Base.metadata.create_all(bind=engine)
 
     with SessionLocal() as db:
-        seed_data(db)
+        cafes_count = db.query(Cafe).count()
+        employees_count = db.query(Employee).count()
+        
+        if cafes_count == 0 and employees_count == 0:
+            seed_data(db)
 
 def seed_data(db: Session):
     from models.cafe import Cafe
